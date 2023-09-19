@@ -4,6 +4,7 @@ import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './jwt-payload';
 
 @Injectable()
 export class AuthService {
@@ -20,20 +21,29 @@ export class AuthService {
       user.password,
     );
     if (!isPasswordValid) throw new UnauthorizedException();
-    return this.getTokens(user._id.toString(), user.username);
+    return this.getToken({
+      sub: user._id.toString(),
+      username: user.username,
+      roles: user.roles,
+    });
   }
 
-  public register(registerDto: RegisterDto) {
-    const user = this.usersService.createUser(registerDto);
+  public async register(registerDto: RegisterDto) {
+    try {
+      const user = await this.usersService.createUser(registerDto);
+      return this.getToken({
+        sub: user._id.toString(),
+        username: user.username,
+        roles: user.roles,
+      });
+    } catch (e) {
+      throw e;
+    }
   }
 
-  private getTokens(userId: string, username: string) {
-    const payload = { userId, username };
+  private getToken(jwtPayload: JwtPayload) {
     return {
-      accessToken: this.jwtService.sign(payload),
-      refreshToken: this.jwtService.sign(payload, {
-        expiresIn: '7d',
-      }),
+      accessToken: this.jwtService.sign(jwtPayload),
     };
   }
 }
