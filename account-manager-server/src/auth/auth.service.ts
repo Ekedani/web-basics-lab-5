@@ -30,7 +30,7 @@ export class AuthService {
 
   public async register(registerDto: RegisterDto) {
     try {
-      const user = await this.usersService.createUser(registerDto);
+      const user = await this.usersService.create(registerDto);
       return this.getToken({
         sub: user._id.toString(),
         username: user.username,

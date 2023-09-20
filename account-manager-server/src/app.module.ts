@@ -4,12 +4,15 @@ import { AccountsModule } from './accounts/accounts.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { appRoles } from './shared/enums/role.enum';
+import { AccessControlModule } from 'nest-access-control';
 
 @Module({
   imports: [
     UsersModule,
     AccountsModule,
     AuthModule,
+    AccessControlModule.forRoles(appRoles),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
