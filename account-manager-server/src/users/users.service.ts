@@ -32,8 +32,8 @@ export class UsersService {
     });
     try {
       return createdUser.save();
-    } catch (error) {
-      throw new BadRequestException(error.message);
+    } catch (e) {
+      throw new BadRequestException(e.message);
     }
   }
 

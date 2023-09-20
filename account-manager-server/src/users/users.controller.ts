@@ -12,27 +12,16 @@ import { JwtAuthGuard } from '../shared/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateRolesDto } from './dto/update-roles.dto';
-import { UpdateProfileDto } from "./dto/update-profile.dto";
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Put('profile/password')
-  @UseGuards(JwtAuthGuard, ACGuard)
-  @UseRoles({
-    resource: 'profile',
-    action: 'update',
-    possession: 'own',
-  })
-  updateOwnPassword(@Body() updatePasswordDto: UpdatePasswordDto) {
-    return this.usersService.changePassword('id', updatePasswordDto);
-  }
-
   @Patch('profile')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
-    resource: 'profile',
+    resource: 'users',
     action: 'update',
     possession: 'own',
   })
@@ -40,10 +29,21 @@ export class UsersController {
     return this.usersService.updateById('id', updateProfileDto);
   }
 
+  @Put('profile/password')
+  @UseGuards(JwtAuthGuard, ACGuard)
+  @UseRoles({
+    resource: 'users',
+    action: 'update',
+    possession: 'own',
+  })
+  updateOwnPassword(@Body() updatePasswordDto: UpdatePasswordDto) {
+    return this.usersService.changePassword('id', updatePasswordDto);
+  }
+
   @Get('profile')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
-    resource: 'profile',
+    resource: 'users',
     action: 'read',
     possession: 'own',
   })
@@ -54,7 +54,7 @@ export class UsersController {
   @Get()
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
-    resource: 'profile',
+    resource: 'users',
     action: 'read',
     possession: 'any',
   })
@@ -65,7 +65,7 @@ export class UsersController {
   @Get(':id')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
-    resource: 'profile',
+    resource: 'users',
     action: 'read',
     possession: 'any',
   })
@@ -76,7 +76,7 @@ export class UsersController {
   @Put(':id/password')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
-    resource: 'profile',
+    resource: 'users',
     action: 'update',
     possession: 'any',
   })
@@ -90,7 +90,7 @@ export class UsersController {
   @Put(':id/roles')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
-    resource: 'profile',
+    resource: 'users',
     action: 'update',
     possession: 'any',
   })

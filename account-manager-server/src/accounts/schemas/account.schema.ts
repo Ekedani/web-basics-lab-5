@@ -25,12 +25,6 @@ export class Account {
     default: Date.now,
   })
   createdAt: Date;
-
-  @Prop({
-    required: true,
-  })
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  authorId: any;
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account);
