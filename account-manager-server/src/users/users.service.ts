@@ -31,9 +31,12 @@ export class UsersService {
       password: hashedPassword,
     });
     try {
-      return createdUser.save();
+      return await createdUser.save();
     } catch (e) {
-      throw new BadRequestException(e.message);
+      if (e.code === 11000) {
+        throw new BadRequestException('Email already exists');
+      }
+      throw e;
     }
   }
 
@@ -66,6 +69,13 @@ export class UsersService {
     if (!user) throw new NotFoundException('User not found');
     user.username = updateProfileDto.username;
     user.email = updateProfileDto.email;
-    return user.save();
+    try {
+      return await user.save();
+    } catch (e) {
+      if (e.code === 11000) {
+        throw new BadRequestException('Email already exists');
+      }
+      throw e;
+    }
   }
 }

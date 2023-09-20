@@ -13,6 +13,8 @@ import { UsersService } from './users.service';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateRolesDto } from './dto/update-roles.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { JwtPayload } from '../auth/jwt-payload';
+import { User } from '../shared/decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -36,7 +38,11 @@ export class UsersController {
     action: 'update',
     possession: 'own',
   })
-  updateOwnPassword(@Body() updatePasswordDto: UpdatePasswordDto) {
+  updateOwnPassword(
+    @User() user: JwtPayload,
+    @Body() updatePasswordDto: UpdatePasswordDto,
+  ) {
+    console.log(user);
     return this.usersService.changePassword('id', updatePasswordDto);
   }
 
