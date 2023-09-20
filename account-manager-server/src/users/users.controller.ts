@@ -13,22 +13,23 @@ import { UsersService } from './users.service';
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateRolesDto } from './dto/update-roles.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { JwtPayload } from '../auth/jwt-payload';
 import { User } from '../shared/decorators/user.decorator';
+import { RequestUser } from '../shared/interfaces/request-user.interface';
+import { SetPasswordDto } from './dto/set-password.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Patch('profile')
+  @Get('profile')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
     resource: 'users',
-    action: 'update',
+    action: 'read',
     possession: 'own',
   })
-  updateOwnProfile(@Body() updateProfileDto: UpdateProfileDto) {
-    return this.usersService.updateById('id', updateProfileDto);
+  getOwnProfile(@User() user: RequestUser) {
+    return this.usersService.findById(user.id);
   }
 
   @Put('profile/password')
@@ -39,22 +40,38 @@ export class UsersController {
     possession: 'own',
   })
   updateOwnPassword(
-    @User() user: JwtPayload,
+    @User() user: RequestUser,
     @Body() updatePasswordDto: UpdatePasswordDto,
   ) {
-    console.log(user);
-    return this.usersService.changePassword('id', updatePasswordDto);
+    return this.usersService.changePassword(user.id, updatePasswordDto);
   }
 
-  @Get('profile')
+  @Patch('profile')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
     resource: 'users',
-    action: 'read',
+    action: 'update',
     possession: 'own',
   })
-  getOwnProfile() {
-    return `This action returns the profile of the current user`;
+  updateOwnProfile(
+    @User() user: RequestUser,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ) {
+    return this.usersService.updateById(user.id, updateProfileDto);
+  }
+
+  @Patch('users/:id')
+  @UseGuards(JwtAuthGuard, ACGuard)
+  @UseRoles({
+    resource: 'users',
+    action: 'update',
+    possession: 'any',
+  })
+  updateProfile(
+    @Param('id') id: string,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ) {
+    return this.usersService.updateById(id, updateProfileDto);
   }
 
   @Get()
@@ -86,11 +103,11 @@ export class UsersController {
     action: 'update',
     possession: 'any',
   })
-  updatePassword(
+  async updatePassword(
     @Param('id') id: string,
-    @Body() updatePasswordDto: UpdatePasswordDto,
+    @Body() setPasswordDto: SetPasswordDto,
   ) {
-    this.usersService.changePassword(id, updatePasswordDto);
+    await this.usersService.setNewPassword(id, setPasswordDto.newPassword);
   }
 
   @Put(':id/roles')
@@ -100,7 +117,10 @@ export class UsersController {
     action: 'update',
     possession: 'any',
   })
-  updateRoles(@Param('id') id: string, @Body() updateRolesDto: UpdateRolesDto) {
-    this.usersService.updateRoles(id, updateRolesDto);
+  async updateRoles(
+    @Param('id') id: string,
+    @Body() updateRolesDto: UpdateRolesDto,
+  ) {
+    await this.usersService.updateRoles(id, updateRolesDto);
   }
 }

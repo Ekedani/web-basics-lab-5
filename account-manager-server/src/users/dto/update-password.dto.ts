@@ -1,10 +1,5 @@
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { SetPasswordDto } from './set-password.dto';
 
-export class UpdatePasswordDto {
+export class UpdatePasswordDto extends SetPasswordDto {
   oldPassword: string;
-
-  @IsNotEmpty({ message: 'Password cannot be empty' })
-  @IsString({ message: 'Password must be a string' })
-  @MinLength(10, { message: 'Password must be at least 10 characters long' })
-  newPassword: string;
 }

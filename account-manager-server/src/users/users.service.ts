@@ -49,6 +49,13 @@ export class UsersService {
     return user.save();
   }
 
+  async setNewPassword(id: string, newPassword: string) {
+    const user = await this.userModel.findById(id);
+    if (!user) throw new NotFoundException('User not found');
+    user.password = bcrypt.hashSync(newPassword, 10);
+    return user.save();
+  }
+
   findAll() {
     return this.userModel.find();
   }
