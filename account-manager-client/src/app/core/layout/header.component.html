@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span>Auth Demo</span>
+  <nav>
+    <a
+      *ngIf="!isLoggedIn"
+      routerLink="/login"
+    >Sign In</a>
+    <a
+      *ngIf="!isLoggedIn"
+      routerLink="/register">Sign Up</a>
+    <a
+      *ngIf="isLoggedIn"
+      routerLink="/profile">Profile</a>
+    <a
+      *ngIf="isLoggedIn"
+      routerLink="/users">Users</a>
+  </nav>
+</mat-toolbar>

@@ -1,0 +1,76 @@
+<div class="editor-container">
+  <div class="form-container">
+    <h2>Personal info</h2>
+    <form [formGroup]="personalInfoForm" (ngSubmit)="onPersonalInfoSubmit()">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input
+          matInput name="username"
+          type="text"
+          placeholder="Username"
+          formControlName="username"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input
+          matInput name="email"
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input
+          matInput name="phone"
+          type="text"
+          placeholder="Phone"
+          formControlName="phone"
+        >
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="personalInfoForm.invalid"
+      >Save
+      </button>
+    </form>
+  </div>
+  <div class="form-container">
+    <h2>Password</h2>
+    <form [formGroup]="newPasswordForm" (ngSubmit)="onNewPasswordSubmit()">
+      <mat-form-field>
+        <mat-label>New password</mat-label>
+        <input
+          matInput name="new-password"
+          type="password"
+          placeholder="New password"
+          formControlName="newPassword"
+        >
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="newPasswordForm.invalid"
+      >Save
+      </button>
+    </form>
+  </div>
+  <div class="form-container">
+    <h2>Roles</h2>
+    <form [formGroup]="rolesForm" (ngSubmit)="onRolesSubmit()">
+      <p><mat-checkbox formControlName="user">User</mat-checkbox></p>
+      <p><mat-checkbox formControlName="admin">Admin</mat-checkbox></p>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="rolesForm.invalid"
+      >Save
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="users-container">
+  <mat-list>
+    <mat-list-item *ngFor="let user of users" (click)="onUserClicked(user)">
+      <span matListItemTitle>
+        <mat-icon>person</mat-icon>
+        {{user.username}}
+      </span>
+      <span matListItemLine>Email: {{user.email}}</span>
+      <span matListItemLine>Phone: {{user.phone}}</span>
+      <span matListItemLine>Roles: {{user.roles.join(', ')}}</span>
+    </mat-list-item>
+  </mat-list>
+  <div class="user-editor-container" *ngIf="selectedUser">
+    <app-user-editor
+      (userUpdated)="onUserUpdated($event)"
+      [user]="selectedUser"
+    ></app-user-editor>
+  </div>
+</div>
