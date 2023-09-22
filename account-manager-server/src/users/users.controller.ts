@@ -28,7 +28,7 @@ export class UsersController {
     action: 'read',
     possession: 'own',
   })
-  getOwnProfile(@User() user: RequestUser) {
+  async getOwnProfile(@User() user: RequestUser) {
     return this.usersService.findById(user.id);
   }
 

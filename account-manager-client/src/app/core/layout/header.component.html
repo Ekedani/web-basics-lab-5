@@ -3,16 +3,27 @@
   <nav>
     <a
       *ngIf="!isLoggedIn"
+      mat-button
       routerLink="/login"
-    >Sign In</a>
+    ><mat-icon>login</mat-icon>
+      Sign In</a>
     <a
       *ngIf="!isLoggedIn"
-      routerLink="/register">Sign Up</a>
+      mat-button
+      routerLink="/register"
+    ><mat-icon>person_add</mat-icon>
+      Sign Up</a>
     <a
       *ngIf="isLoggedIn"
-      routerLink="/profile">Profile</a>
+      mat-button
+      routerLink="/profile"
+    ><mat-icon>person</mat-icon>
+      Profile</a>
     <a
       *ngIf="isLoggedIn"
-      routerLink="/users">Users</a>
+      mat-button
+      routerLink="/users"
+    ><mat-icon>groups</mat-icon>
+      Users</a>
   </nav>
 </mat-toolbar>

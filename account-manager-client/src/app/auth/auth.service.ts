@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class AuthService {
   ) {
   }
 
+  public isLoggedIn: Subject<boolean> = new Subject<boolean>();
   public get isAuthenticated(): boolean {
-    console.log(this.token, !!this.token, 'isAuthenticated');
     return !!this.token;
   }
 

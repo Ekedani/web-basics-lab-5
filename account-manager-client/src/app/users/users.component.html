@@ -8,6 +8,7 @@
       <span matListItemLine>Email: {{user.email}}</span>
       <span matListItemLine>Phone: {{user.phone}}</span>
       <span matListItemLine>Roles: {{user.roles.join(', ')}}</span>
+      <span matListItemLine>Joined: {{user.createdAt | date}}</span>
     </mat-list-item>
   </mat-list>
   <div class="user-editor-container" *ngIf="selectedUser">

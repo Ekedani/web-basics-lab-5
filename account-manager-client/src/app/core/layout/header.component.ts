@@ -12,7 +12,7 @@ export class HeaderComponent {
   ) {
   }
 
-  isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     return this._authService.isAuthenticated;
   }
 }

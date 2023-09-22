@@ -1,1 +1,30 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <h1>My Profile</h1>
+  <div class="profile">
+    <div class="profile-image">
+      <img
+        ngSrc="https://random.imagecdn.app/300/300"
+        width="300"
+        height="300"
+        priority="true"
+        alt="Random Image">
+    </div>
+    <div class="profile-info">
+      <div class="profile-info-item">
+        <h3>Username</h3>
+        <p>{{profile?.username}}</p>
+      </div>
+      <div class="profile-info-item">
+        <h3>Email</h3>
+        <p>{{profile?.email}}</p>
+      </div>
+      <div class="profile-info-item">
+        <h3>Phone</h3>
+        <p>{{profile?.phone}}</p>
+      </div>
+      <div class="profile-info-item">
+        <h3>Roles</h3>
+        <p>{{profile?.roles?.join(',')}}</p>
+      </div>
+    </div>
+  </div>

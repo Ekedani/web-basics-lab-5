@@ -1,0 +1,24 @@
+.profile-container {
+  max-width: 800px;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-container h1 {
+  font-weight: 500;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.profile-info-item h3 {
+  font-weight: 500;
+  margin: 0;
+}
