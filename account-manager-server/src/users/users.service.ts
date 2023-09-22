@@ -29,6 +29,7 @@ export class UsersService {
       username: registerDto.username,
       email: registerDto.email,
       password: hashedPassword,
+      phone: registerDto.phone,
     });
     try {
       return await createdUser.save();

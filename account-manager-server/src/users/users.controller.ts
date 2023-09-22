@@ -60,7 +60,7 @@ export class UsersController {
     return this.usersService.updateById(user.id, updateProfileDto);
   }
 
-  @Patch('users/:id')
+  @Patch(':id')
   @UseGuards(JwtAuthGuard, ACGuard)
   @UseRoles({
     resource: 'users',
