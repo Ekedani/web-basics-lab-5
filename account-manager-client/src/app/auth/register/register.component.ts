@@ -33,7 +33,11 @@ export class RegisterComponent {
   })
 
   onRegister() {
-    const {username, email, password} = this.registerForm.value;
-    this.authService.register(email as string, password as string);
+    this.authService.register(
+      this.registerForm.value.username as string,
+      this.registerForm.value.email as string,
+      this.registerForm.value.phone as string,
+      this.registerForm.value.password as string
+    );
   }
 }

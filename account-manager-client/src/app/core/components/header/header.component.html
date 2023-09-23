@@ -5,25 +5,35 @@
       *ngIf="!isLoggedIn"
       mat-button
       routerLink="/login"
-    ><mat-icon>login</mat-icon>
+    >
+      <mat-icon>login</mat-icon>
       Sign In</a>
     <a
       *ngIf="!isLoggedIn"
       mat-button
       routerLink="/register"
-    ><mat-icon>person_add</mat-icon>
+    >
+      <mat-icon>person_add</mat-icon>
       Sign Up</a>
     <a
       *ngIf="isLoggedIn"
       mat-button
       routerLink="/profile"
-    ><mat-icon>person</mat-icon>
+    >
+      <mat-icon>person</mat-icon>
       Profile</a>
     <a
       *ngIf="isLoggedIn"
       mat-button
       routerLink="/users"
-    ><mat-icon>groups</mat-icon>
+    >
+      <mat-icon>groups</mat-icon>
       Users</a>
+    <button
+      *ngIf="isLoggedIn"
+      mat-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
   </nav>
 </mat-toolbar>

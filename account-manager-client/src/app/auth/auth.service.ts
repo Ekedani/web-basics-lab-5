@@ -17,22 +17,33 @@ export class AuthService {
   }
 
   public isLoggedIn: Subject<boolean> = new Subject<boolean>();
+
   public get isAuthenticated(): boolean {
     return !!this.token;
   }
 
   login(email: string, password: string) {
-    this.http.post<{ accessToken: string }>(`${this.API_URL}/login`, {email, password}).subscribe(
-      res => {
+    this.http.post<{ accessToken: string }>(`${this.API_URL}/login`, {email, password}).subscribe({
+      next: res => {
         this.token = res.accessToken;
+        this.router.navigate(['/profile']);
+      },
+      error: err => {
+        alert('Invalid credentials');
       }
-    )
+    })
   }
 
-  register(email: string, password: string): void {
-    this.http.post<{ accessToken: string }>(`${this.API_URL}/register`, {email, password}).subscribe(
+  register(
+    username: string,
+    email: string,
+    phone: string,
+    password: string
+  ): void {
+    this.http.post<{ accessToken: string }>(`${this.API_URL}/register`, {username, email, phone, password}).subscribe(
       res => {
         this.token = res.accessToken;
+        this.router.navigate(['/profile']);
       }
     )
   }

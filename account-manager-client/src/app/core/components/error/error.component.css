@@ -1,0 +1,16 @@
+.error-container {
+  margin-top: 150px;
+  text-align: center;
+  color: #f00;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.error-status {
+  font-size: 100px;
+}
+
+.error-message {
+  margin-top: 30px;
+  font-size: 30px;
+}
